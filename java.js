@@ -22,6 +22,43 @@ let rankSortAsc = true;
 form.addEventListener('submit', function(e) {
   e.preventDefault();
 
+  const imie = document.getElementById('firstName').value.trim();
+  const nazwisko = document.getElementById('lastName').value.trim();
+  const uid = document.getElementById('idNumber').value.trim();
+  const stopien = document.getElementById('stopien').value.trim();
+  const ranga = document.getElementById('ranga').value;
+
+  if (imie && nazwisko && uid && stopien && ranga) {
+    const data = {
+      imie,
+      nazwisko,
+      uid,
+      stopien,
+      ranga
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycby4vDQbevbeCQzQuyTFKC0lyU1vzwevCfF3PpXHQKv7h_uH8_GVOhTTTcQ9JiOjPIJtMQ/exec', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log('Zapisano:', response);
+      form.reset();
+      alert("Dodano pracownika!");
+    })
+    .catch(error => {
+      console.error('Błąd:', error);
+      alert("Wystąpił błąd przy zapisie.");
+    });
+  }
+});
+
+  e.preventDefault();
+
   const stopien = document.getElementById('stopien').value.trim();
   const ranga = document.getElementById('ranga').value;
 
@@ -73,41 +110,4 @@ rankHeader.addEventListener('click', () => {
 
   rankSortAsc = !rankSortAsc;
   rankHeader.textContent = Ranga ${rankSortAsc ? '▼' : '▲'};
-});
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  const imie = document.getElementById('firstName').value.trim();
-  const nazwisko = document.getElementById('lastName').value.trim();
-  const uid = document.getElementById('idNumber').value.trim();
-  const stopien = document.getElementById('stopien').value.trim();
-  const ranga = document.getElementById('ranga').value;
-
-  if (imie && nazwisko && uid && stopien && ranga) {
-    const data = {
-      imie,
-      nazwisko,
-      uid,
-      stopien,
-      ranga
-    };
-
-    fetch('https://script.google.com/macros/s/AKfycby4vDQbevbeCQzQuyTFKC0lyU1vzwevCfF3PpXHQKv7h_uH8_GVOhTTTcQ9JiOjPIJtMQ/exec', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(response => {
-      console.log('Zapisano:', response);
-      form.reset();
-      alert("Dodano pracownika!");
-    })
-    .catch(error => {
-      console.error('Błąd:', error);
-      alert("Wystąpił błąd przy zapisie.");
-    });
-  }
 });
