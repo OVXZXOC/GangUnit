@@ -27,14 +27,14 @@ form.addEventListener('submit', function(e) {
 
   if(stopien && ranga) {
     const row = document.createElement('tr');
-    row.innerHTML = `
+    row.innerHTML = 
       <td>${stopien}</td>
       <td>${ranga}</td>
       <td class="action-buttons">
         <button class="edit-btn">Edytuj</button>
         <button class="delete-btn">Usuń</button>
       </td>
-    `;
+    ;
 
     // Usuń wiersz po kliknięciu Usuń
     row.querySelector('.delete-btn').addEventListener('click', () => {
@@ -72,5 +72,5 @@ rankHeader.addEventListener('click', () => {
   rowsArray.forEach(row => tableBody.appendChild(row));
 
   rankSortAsc = !rankSortAsc;
-  rankHeader.textContent = `Ranga ${rankSortAsc ? '▼' : '▲'}`;
+  rankHeader.textContent = Ranga ${rankSortAsc ? '▼' : '▲'};
 });
